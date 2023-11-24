@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:acne_detection/Common/style.dart';
 import 'package:acne_detection/Models/Prediction_Model.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -54,7 +55,6 @@ class BoundingBoxPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
-
 }
 
 class _CameraPreviewPageState extends State<CameraPreviewPage> {
@@ -67,7 +67,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       apiResponse();
     });
     //rebuildAllChildren(context);
@@ -78,7 +78,8 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
     String picBase64 = base64Encode(bytes);
     String APIkey = "TVwnSql9wk4Nwt6Dc2SN";
     String endpoint = "acne-detection-q9g59/7";
-    String URL = "https://detect.roboflow.com/" + endpoint + "?api_key=" + APIkey + "&name=YOUR_IMAGE.jpg";
+    String URL =
+        "https://detect.roboflow.com/$endpoint?api_key=$APIkey&name=YOUR_IMAGE.jpg";
     http.Response response = await http.post(
       Uri.parse(URL),
       headers: <String, String>{
@@ -92,13 +93,18 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
       Iterable l = jsonDecode(response.body)["predictions"];
       // height = int.parse(jsonDecode(response.body)["image"]["height"]);
       // width = int.parse(jsonDecode(response.body)["image"]["width"]);
-      print(response.body);
-      predictions = List<Prediction>.from(l.map((model)=> Prediction.fromJson(model)));
+      if (kDebugMode) {
+        print(response.body);
+      }
+      predictions =
+          List<Prediction>.from(l.map((model) => Prediction.fromJson(model)));
       setState(() {
         _isLoading = false;
       });
     } else {
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       throw Exception('Failed to create album.');
     }
   }
@@ -114,55 +120,60 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
     List<double> Ws = List.filled(0, 0, growable: true);
     List<double> Hs = List.filled(0, 0, growable: true);
     List<double> confs = List.filled(0, 0, growable: true);
-    return
-      Column(mainAxisSize: MainAxisSize.min, children: [
-        Stack(
-            children: [
-              image,
-              CustomPaint(
-                painter: BoundingBoxPainter(
-                  rectangles: predictions.map((p) {
-                    //medium
-                    var hratio = 370/480;
-                    var yratio = 555/720;
-                    var W = p.width * hratio;
-                    var H = p.height * yratio;
-                    var L = (p.x * hratio - W/2 - 2).abs();
-                    var T = (p.y * yratio - H/2 + 2).abs();
-                    // var L = (p.x * hratio - W/2 - 10).abs();
-                    // var T = (p.y * yratio - H/2 + 10).abs();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Stack(children: [
+          image,
+          CustomPaint(
+            painter: BoundingBoxPainter(
+              rectangles: predictions.map((p) {
+                //medium
+                var hratio = 370 / 480;
+                var yratio = 555 / 720;
+                var W = p.width * hratio;
+                var H = p.height * yratio;
+                var L = (p.x * hratio - W / 2 - 2).abs();
+                var T = (p.y * yratio - H / 2 + 2).abs();
+                // var L = (p.x * hratio - W/2 - 10).abs();
+                // var T = (p.y * yratio - H/2 + 10).abs();
 
-                    if (p.confidence < 0.2 || H < 10) {
-                      L = 1000;
-                      T = 1000;
-                    } else {
-                      for (var i = 0; i < Ls.length; i++) {
-                        if ((Ls[i] - L).abs() < 20 && (Ts[i] - T).abs() < 20 && (Ws[i] - W).abs() < 20 && (Ws[i] - W).abs() < 20) {
-                          if (p.confidence < confs[i]) {
-                            L = 1000;
-                            T = 1000;
-                          } else {
-                            predictions[i].classification = p.classification;
-                            L = 1000;
-                            T = 1000;
-                          }
-                        }
+                if (p.confidence < 0.2 || H < 10) {
+                  L = 1000;
+                  T = 1000;
+                } else {
+                  for (var i = 0; i < Ls.length; i++) {
+                    if ((Ls[i] - L).abs() < 20 &&
+                        (Ts[i] - T).abs() < 20 &&
+                        (Ws[i] - W).abs() < 20 &&
+                        (Ws[i] - W).abs() < 20) {
+                      if (p.confidence < confs[i]) {
+                        L = 1000;
+                        T = 1000;
+                      } else {
+                        predictions[i].classification = p.classification;
+                        L = 1000;
+                        T = 1000;
                       }
                     }
-                    Ls.add(L);
-                    Ts.add(T);
-                    Ws.add(W);
-                    Hs.add(H);
-                    confs.add(p.confidence);
-                    return Rect.fromLTWH(L, T, W, H);
-                  }).toList(),
-                  labels: predictions.map((p) {
-                    // return p.classification;
-                    return "${p.classification} (${(p.confidence * 100).toStringAsFixed(2)}%)";
-                  }).toList(),
-                ),)]
-        )],
-      );
+                  }
+                }
+                Ls.add(L);
+                Ts.add(T);
+                Ws.add(W);
+                Hs.add(H);
+                confs.add(p.confidence);
+                return Rect.fromLTWH(L, T, W, H);
+              }).toList(),
+              labels: predictions.map((p) {
+                // return p.classification;
+                return "${p.classification} (${(p.confidence * 100).toStringAsFixed(2)}%)";
+              }).toList(),
+            ),
+          )
+        ])
+      ],
+    );
   }
 
   // @override
@@ -180,61 +191,57 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-            title: const Text('Results')),
+        appBar: AppBar(title: const Text('Results')),
         body: Center(
           child: false
               ? Column(
-                children: [
-                  Image.file(File(widget.picture.path)),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 10,
-                    ),
-                    child: const Text(
-                      "Tidak Terdetection",
-                      maxLines: 2,
-                      style:
-                      TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'avenir',
-                        color: ColorStyles.textColor,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w800,
+                  children: [
+                    Image.file(File(widget.picture.path)),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 10,
                       ),
-                    ),
-                  )
-                ],
-              )
+                      child: const Text(
+                        "Tidak Terdetection",
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'avenir',
+                          color: ColorStyles.textColor,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    )
+                  ],
+                )
               : Column(
-                children: [
-                  _buildBoxes(),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 10,
-                    ),
-                    child: const Text(
-                      "Terdetection",
-                      maxLines: 2,
-                      style:
-                      TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'avenir',
-                        color: ColorStyles.textColor,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w800,
+                  children: [
+                    _buildBoxes(),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 10,
+                      ),
+                      child: Text(
+                        predictions.isNotEmpty ? "Terdetection" : "tidak",
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'avenir',
+                          color: ColorStyles.textColor,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
         ),
       ),
     );
   }
 }
-
