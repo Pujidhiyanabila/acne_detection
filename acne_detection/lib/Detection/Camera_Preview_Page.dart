@@ -67,7 +67,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_){
       apiResponse();
     });
     //rebuildAllChildren(context);
@@ -78,8 +78,8 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
     String picBase64 = base64Encode(bytes);
     String APIkey = "TVwnSql9wk4Nwt6Dc2SN";
     String endpoint = "acne-detection-q9g59/7";
-    String URL =
-        "https://detect.roboflow.com/$endpoint?api_key=$APIkey&name=YOUR_IMAGE.jpg";
+    // String URL = "https://detect.roboflow.com/" + endpoint + "?api_key=" + APIkey + "&name=YOUR_IMAGE.jpg";
+    String URL = "https://detect.roboflow.com/$endpoint?api_key=$APIkey&name=YOUR_IMAGE.jpg";
     http.Response response = await http.post(
       Uri.parse(URL),
       headers: <String, String>{
@@ -97,7 +97,9 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
         print(response.body);
       }
       predictions =
-          List<Prediction>.from(l.map((model) => Prediction.fromJson(model)));
+      List<Prediction>.from(l.map((model) => Prediction.fromJson(model)));
+      // print(response.body);
+      // predictions = List<Prediction>.from(l.map((model)=> Prediction.fromJson(model)));
       setState(() {
         _isLoading = false;
       });
@@ -105,6 +107,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
       if (kDebugMode) {
         print(response.statusCode);
       }
+      // print(response.statusCode);
       throw Exception('Failed to create album.');
     }
   }
@@ -137,7 +140,6 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
                 var T = (p.y * yratio - H / 2 + 2).abs();
                 // var L = (p.x * hratio - W/2 - 10).abs();
                 // var T = (p.y * yratio - H/2 + 10).abs();
-
                 if (p.confidence < 0.2 || H < 10) {
                   L = 1000;
                   T = 1000;
@@ -154,26 +156,24 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
                         predictions[i].classification = p.classification;
                         L = 1000;
                         T = 1000;
+                          }
+                        }
                       }
                     }
-                  }
-                }
-                Ls.add(L);
-                Ts.add(T);
-                Ws.add(W);
-                Hs.add(H);
-                confs.add(p.confidence);
-                return Rect.fromLTWH(L, T, W, H);
-              }).toList(),
-              labels: predictions.map((p) {
-                // return p.classification;
-                return "${p.classification} (${(p.confidence * 100).toStringAsFixed(2)}%)";
-              }).toList(),
-            ),
-          )
-        ])
-      ],
-    );
+                    Ls.add(L);
+                    Ts.add(T);
+                    Ws.add(W);
+                    Hs.add(H);
+                    confs.add(p.confidence);
+                    return Rect.fromLTWH(L, T, W, H);
+                  }).toList(),
+                  labels: predictions.map((p) {
+                    // return p.classification;
+                    return "${p.classification} (${(p.confidence * 100).toStringAsFixed(2)}%)";
+                  }).toList(),
+                ),)]
+        )],
+      );
   }
 
   // @override
@@ -194,54 +194,33 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
         appBar: AppBar(title: const Text('Results')),
         body: Center(
           child: false
-              ? Column(
-                  children: [
-                    Image.file(File(widget.picture.path)),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 10,
-                      ),
-                      child: const Text(
-                        "Tidak Terdetection",
-                        maxLines: 2,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'avenir',
-                          color: ColorStyles.textColor,
-                          overflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    )
-                  ],
-                )
+              ? Image.file(File(widget.picture.path))
               : Column(
-                  children: [
-                    _buildBoxes(),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 10,
-                      ),
-                      child: Text(
-                        predictions.isNotEmpty ? "Terdetection" : "tidak",
-                        maxLines: 2,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'avenir',
-                          color: ColorStyles.textColor,
-                          overflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ],
+            children: [
+              _buildBoxes(),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 2,
+                  horizontal: 10,
                 ),
+                child: Text(
+                  predictions.isNotEmpty ? "Terdeteksi" : "Tidak Terdeteksi",
+                  maxLines: 2,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'avenir',
+                    color: ColorStyles.textColor,
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
