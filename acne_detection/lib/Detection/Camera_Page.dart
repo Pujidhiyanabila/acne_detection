@@ -35,28 +35,103 @@ class _CameraPageState extends State<CameraPage> {
     return http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
   }
 
-  Future takePicture() async {
+  Future<void> takePicture() async {
     if (!_cameraController.value.isInitialized) {
       return null;
     }
+
     if (_cameraController.value.isTakingPicture) {
       return null;
     }
-    try {
-      await _cameraController.setFlashMode(FlashMode.off);
-      XFile picture = await _cameraController.takePicture();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CameraPreviewPage(
-                picture: picture,
-              )));
 
+    try {
+      // Attempt to set flash mode to off (may throw an exception on devices without flash)
+      await _cameraController.setFlashMode(FlashMode.off);
+    } catch (e) {
+      debugPrint('Error setting flash mode: $e');
+    }
+
+    try {
+      XFile picture = await _cameraController.takePicture();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CameraPreviewPage(
+            picture: picture,
+          ),
+        ),
+      );
     } on CameraException catch (e) {
-      debugPrint('Error occured while taking picture: $e');
-      return null;
+      debugPrint('Error occurred while taking picture: $e');
+      // Display an error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error occurred while taking picture.'),
+        ),
+      );
     }
   }
+
+  // Future<void> takePicture() async {
+  //   if (!_cameraController.value.isInitialized) {
+  //     return null;
+  //   }
+  //
+  //   if (_cameraController.value.isTakingPicture) {
+  //     return null;
+  //   }
+  //
+  //   try {
+  //     if (_cameraController.value.flashMode == FlashMode.auto ||
+  //         _cameraController.value.flashMode == FlashMode.always) {
+  //       await _cameraController.setFlashMode(FlashMode.off);
+  //     }
+  //
+  //     XFile picture = await _cameraController.takePicture();
+  //
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => CameraPreviewPage(
+  //           picture: picture,
+  //         ),
+  //       ),
+  //     );
+  //   } on CameraException catch (e) {
+  //     debugPrint('Error occurred while taking picture: $e');
+  //     // Display an error message to the user
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Error occurred while taking picture.'),
+  //       ),
+  //     );
+  //     return null;
+  //   }
+  // }
+
+  // Future takePicture() async {
+  //   if (!_cameraController.value.isInitialized) {
+  //     return null;
+  //   }
+  //   if (_cameraController.value.isTakingPicture) {
+  //     return null;
+  //   }
+  //   try {
+  //     await _cameraController.setFlashMode(FlashMode.off);
+  //     XFile picture = await _cameraController.takePicture();
+  //     Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //             builder: (context) => CameraPreviewPage(
+  //               picture: picture,
+  //             )));
+  //
+  //   } on CameraException catch (e) {
+  //     debugPrint('Error occured while taking picture: $e');
+  //     return null;
+  //   }
+  // }
 
   Future initCamera(CameraDescription cameraDescription) async {
     _cameraController =
@@ -67,7 +142,15 @@ class _CameraPageState extends State<CameraPage> {
         setState(() {});
       });
     } on CameraException catch (e) {
-      debugPrint("camera error $e");
+      debugPrint('Error occurred while taking picture: $e');
+      // Display an error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error occurred while taking picture.'),
+        ),
+      );
+      return null;
+      // debugPrint("camera error $e");
     }
   }
 
