@@ -9,13 +9,19 @@ class HomeAppBarWidget extends StatelessWidget {
     return Container(
       color: ColorStyles.primaryColor,
       padding: const EdgeInsets.all(25),
-      child: const Row(
+      child: Row(
         children: [
-          Icon(
-            Icons.center_focus_weak,
-            size: 30,
+          Image.asset(
+            'Assets/Images/logoapp.png', // Provide the correct path to your image
+            width: 20,
+            height: 20,
             color: ColorStyles.blackColor,
           ),
+          // Icon(
+          //   Icons.center_focus_weak,
+          //   size: 30,
+          //   color: ColorStyles.blackColor,
+          // ),
           Padding(
             padding: EdgeInsets.only(
               left: 20,
