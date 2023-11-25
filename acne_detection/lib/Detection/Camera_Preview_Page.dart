@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:acne_detection/Common/style.dart';
 import 'package:acne_detection/Models/Prediction_Model.dart';
+import 'package:acne_detection/Views/CategoryScreen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,7 @@ class BoundingBoxPainter extends CustomPainter {
 
 class _CameraPreviewPageState extends State<CameraPreviewPage> {
   List<Prediction> predictions = [];
+  Map<String, int> detectionCounts = {};
   Image? labeled;
   num height = 720;
   num width = 480;
@@ -71,6 +73,22 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
       apiResponse();
     });
     //rebuildAllChildren(context);
+  }
+
+  void calculateDetectionCounts() {
+    detectionCounts.clear(); // Clear the existing counts
+
+    for (var prediction in predictions) {
+      if (prediction.confidence >= 0.3 && prediction.height >= 10) {
+        // Only count instances with confidence >= 0.3 and height >= 10
+        if (detectionCounts.containsKey(prediction.classification)) {
+          detectionCounts[prediction.classification] =
+              detectionCounts[prediction.classification]! + 1;
+        } else {
+          detectionCounts[prediction.classification] = 1;
+        }
+      }
+    }
   }
 
   Future apiResponse() async {
@@ -119,6 +137,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
     List<double> Ws = List.filled(0, 0, growable: true);
     List<double> Hs = List.filled(0, 0, growable: true);
     List<double> confs = List.filled(0, 0, growable: true);
+    calculateDetectionCounts();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -172,47 +191,79 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
       );
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //         title: const Text('Results')),
-  //     body: Center(
-  //         child: false ? Image.file(File(widget.picture.path)) : _buildBoxes()
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text('Results')),
-        body: Center(
-          child: false
-              ? Image.file(File(widget.picture.path))
-              : Column(
-            children: [
-              _buildBoxes(),
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.symmetric(
-                  vertical: 2,
-                  horizontal: 10,
-                ),
-                child: Text(
-                  predictions.isNotEmpty ? "Terdeteksi" : "Tidak Terdeteksi",
-                  maxLines: 2,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'avenir',
-                    color: ColorStyles.textColor,
-                    overflow: TextOverflow.ellipsis,
-                    fontWeight: FontWeight.w800,
+        // appBar: AppBar(title: const Text('Results')),
+        appBar: AppBar(
+          title:
+          const Text(
+            "Detection Result",
+            maxLines: 2,
+            style:
+            TextStyle(
+                fontSize: 20,
+                fontFamily: 'avenir',
+                color: ColorStyles.primaryColor,
+                fontWeight: FontWeight.w800
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: ColorStyles.secondaryColor,
+        ),
+        backgroundColor: ColorStyles.primaryColor,
+        body: SingleChildScrollView(
+          child: Center(
+            child: false
+                ? Image.file(File(widget.picture.path))
+                : Column(
+              children: [
+                _buildBoxes(),
+                Container(
+                  height: 40,
+                  width: 360,
+                  padding: EdgeInsets.only(top: 5),
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: ColorStyles.appbarColor,
+                  ),
+                  child: Text(
+                    predictions.isNotEmpty ? "Terdeteksi" : "Tidak Terdeteksi",
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'avenir',
+                      color: ColorStyles.textColor,
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                if (detectionCounts.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: detectionCounts.entries
+                        .map(
+                          (entry) => GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) => CategoryScreen()));
+                        },
+                        child: Text(
+                          "${entry.key}: ${entry.value}",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'avenir',
+                            color: ColorStyles.textColor,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
