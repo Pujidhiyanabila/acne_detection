@@ -19,7 +19,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         title:
         const Text(
-          "About Acne Category",
+          "Acne Category",
           maxLines: 2,
           style:
           TextStyle(

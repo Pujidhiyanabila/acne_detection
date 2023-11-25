@@ -68,11 +68,11 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
                           fontWeight: FontWeight.w800),
                       // overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: 5),
                     Text(
                       'Selengkapnya...',
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
                           fontFamily: 'avenir',
                           color: ColorStyles.textColor),
                     ),

@@ -1,4 +1,5 @@
 import 'package:acne_detection/Detection/Camera_Page.dart';
+import 'package:acne_detection/Detection/Gallery_Page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:acne_detection/Common/style.dart';
@@ -15,7 +16,7 @@ class _InputWidgetState extends State<InputWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
+      child: Column(
         children: [
           ElevatedButton.icon(
             onPressed: () async {
@@ -34,69 +35,10 @@ class _InputWidgetState extends State<InputWidget> {
               ),
             ),
           ),
-          const SizedBox(width: 5),
-          ElevatedButton.icon(
-            onPressed: (){},
-            icon: const Icon(Icons.image),
-            label: const Text(
-              "Galery",
-              maxLines: 2,
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'avenir',
-                color: ColorStyles.textColor,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
-          // Card(
-          //   elevation: 0,
-          //   child: Row(
-          //     children: <Widget>[
-          //       Container(
-          //         margin: EdgeInsets.all(5),
-          //         child: Icon(Icons.image),
-          //       ),
-          //       SizedBox(height: 4),
-          //       Text(
-          //         'Galery',
-          //         maxLines: 2,
-          //         style:
-          //         TextStyle(
-          //             fontSize: 14,
-          //             fontFamily: 'avenir',
-          //             color: ColorStyles.textColor,
-          //             fontWeight: FontWeight.w800),
-          //         // overflow: TextOverflow.ellipsis,
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // Card(
-          //   elevation: 0,
-          //   child: Row(
-          //     children: <Widget>[
-          //       Container(
-          //         margin: EdgeInsets.all(5),
-          //         child: Icon(Icons.camera_alt),
-          //       ),
-          //       SizedBox(height: 4),
-          //       Text(
-          //         'Camera',
-          //         maxLines: 2,
-          //         style:
-          //         TextStyle(
-          //             fontSize: 14,
-          //             fontFamily: 'avenir',
-          //             color: ColorStyles.textColor,
-          //             fontWeight: FontWeight.w800),
-          //         // overflow: TextOverflow.ellipsis,
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          // const SizedBox(width: 2),
+          GalleryPage(),
         ],
-      )
+      ),
     );
   }
 }

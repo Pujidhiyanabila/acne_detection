@@ -1,20 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:acne_detection/Common/style.dart';
 import 'package:acne_detection/Models/Prediction_Model.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class CameraPreviewPage extends StatefulWidget {
-  const CameraPreviewPage({super.key, required this.picture});
+class GalleryPreviewPage extends StatefulWidget {
+  const GalleryPreviewPage({super.key, this.pickedFile});
 
-  final XFile picture;
+  final PickedFile? pickedFile;
 
   @override
-  State<CameraPreviewPage> createState() => _CameraPreviewPageState();
+  State<GalleryPreviewPage> createState() => _GalleryPreviewPageState();
 }
 
 class BoundingBoxPainter extends CustomPainter {
@@ -57,7 +56,7 @@ class BoundingBoxPainter extends CustomPainter {
   }
 }
 
-class _CameraPreviewPageState extends State<CameraPreviewPage> {
+class _GalleryPreviewPageState extends State<GalleryPreviewPage> {
   List<Prediction> predictions = [];
   Image? labeled;
   num height = 720;
@@ -70,11 +69,10 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
     WidgetsBinding.instance.addPostFrameCallback((_){
       apiResponse();
     });
-    //rebuildAllChildren(context);
   }
 
   Future apiResponse() async {
-    Uint8List bytes = await File(widget.picture!.path).readAsBytes();
+    Uint8List bytes = await File(widget.pickedFile!.path).readAsBytes();
     String picBase64 = base64Encode(bytes);
     String APIkey = "TVwnSql9wk4Nwt6Dc2SN";
     String endpoint = "acne-detection-q9g59/7";
@@ -113,7 +111,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
   }
 
   Widget _buildBoxes() {
-    Image image = Image.file(File(widget.picture!.path));
+    Image image = Image.file(File(widget.pickedFile!.path));
     List<double> Ls = List.filled(0, 0, growable: true);
     List<double> Ts = List.filled(0, 0, growable: true);
     List<double> Ws = List.filled(0, 0, growable: true);
@@ -152,36 +150,25 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
                         predictions[i].classification = p.classification;
                         L = 1000;
                         T = 1000;
-                          }
-                        }
                       }
                     }
-                    Ls.add(L);
-                    Ts.add(T);
-                    Ws.add(W);
-                    Hs.add(H);
-                    confs.add(p.confidence);
-                    return Rect.fromLTWH(L, T, W, H);
-                  }).toList(),
-                  labels: predictions.map((p) {
-                    // return p.classification;
-                    return "${p.classification} (${(p.confidence * 100).toStringAsFixed(2)}%)";
-                  }).toList(),
-                ),)]
+                  }
+                }
+                Ls.add(L);
+                Ts.add(T);
+                Ws.add(W);
+                Hs.add(H);
+                confs.add(p.confidence);
+                return Rect.fromLTWH(L, T, W, H);
+              }).toList(),
+              labels: predictions.map((p) {
+                // return p.classification;
+                return "${p.classification} (${(p.confidence * 100).toStringAsFixed(2)}%)";
+              }).toList(),
+            ),)]
         )],
-      );
+    );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //         title: const Text('Results')),
-  //     body: Center(
-  //         child: false ? Image.file(File(widget.picture.path)) : _buildBoxes()
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +177,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
         appBar: AppBar(title: const Text('Results')),
         body: Center(
           child: false
-              ? Image.file(File(widget.picture.path))
+              ? Image.file(File(widget.pickedFile!.path))
               : Column(
             children: [
               _buildBoxes(),
@@ -219,4 +206,3 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
     );
   }
 }
-

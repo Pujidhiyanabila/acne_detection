@@ -15,33 +15,33 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          Card(
-            elevation: 0,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Image.asset(
-                      'Assets/Images/potrait.png',
-                      height: 15,
-                      width: 15,
-                      fit: BoxFit.cover),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  'Ambil gambar secara potrait',
-                  maxLines: 2,
-                  style:
-                  TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'avenir',
-                      color: ColorStyles.textColor,
-                      fontWeight: FontWeight.w800),
-                  // overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
+          // Card(
+          //   elevation: 0,
+          //   child: Row(
+          //     children: <Widget>[
+          //       Container(
+          //         margin: EdgeInsets.all(5),
+          //         child: Image.asset(
+          //             'Assets/Images/potrait.png',
+          //             height: 15,
+          //             width: 15,
+          //             fit: BoxFit.cover),
+          //       ),
+          //       SizedBox(height: 4),
+          //       Text(
+          //         'Ambil gambar secara potrait',
+          //         maxLines: 2,
+          //         style:
+          //         TextStyle(
+          //             fontSize: 10,
+          //             fontFamily: 'avenir',
+          //             color: ColorStyles.textColor,
+          //             fontWeight: FontWeight.w800),
+          //         // overflow: TextOverflow.ellipsis,
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Card(
             elevation: 0,
             child: Row(
