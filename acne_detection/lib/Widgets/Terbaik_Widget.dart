@@ -29,7 +29,7 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  'Ambil gambar dengan ukuran 720x480 pixel',
+                  'Ambil gambar dengan resolusi 720x480 pixel',
                   maxLines: 2,
                   style:
                   TextStyle(
