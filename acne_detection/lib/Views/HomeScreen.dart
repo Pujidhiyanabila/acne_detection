@@ -32,27 +32,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    // SizedBox(
-                    //   width: 330,
-                    //   child: ElevatedButton(
-                    //     style: ElevatedButton.styleFrom(
-                    //         backgroundColor: ColorStyles.primaryColor,
-                    //         foregroundColor: ColorStyles.textColor),
-                    //     onPressed: () {
-                    //       Navigator.of(context)
-                    //           .push(MaterialPageRoute(builder: (context) => SearchWidget()));
-                    //     },
-                    //     child: const Text(
-                    //       'Search',
-                    //       style: TextStyle(
-                    //         fontSize: 14,
-                    //         fontFamily: 'avenir',
-                    //         color: ColorStyles.textColor,
-                    //         fontWeight: FontWeight.w800,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     SizedBox(
                       width: 330,
                       child: ElevatedButton.icon(
