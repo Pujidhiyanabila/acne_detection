@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Acne Detection',
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: const SplashScreen(),
         onGenerateRoute: (RouteSettings settings){
           switch (settings.name){
             case SplashScreen.routeName:

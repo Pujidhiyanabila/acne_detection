@@ -73,66 +73,6 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
-  // Future<void> takePicture() async {
-  //   if (!_cameraController.value.isInitialized) {
-  //     return null;
-  //   }
-  //
-  //   if (_cameraController.value.isTakingPicture) {
-  //     return null;
-  //   }
-  //
-  //   try {
-  //     if (_cameraController.value.flashMode == FlashMode.auto ||
-  //         _cameraController.value.flashMode == FlashMode.always) {
-  //       await _cameraController.setFlashMode(FlashMode.off);
-  //     }
-  //
-  //     XFile picture = await _cameraController.takePicture();
-  //
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => CameraPreviewPage(
-  //           picture: picture,
-  //         ),
-  //       ),
-  //     );
-  //   } on CameraException catch (e) {
-  //     debugPrint('Error occurred while taking picture: $e');
-  //     // Display an error message to the user
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Error occurred while taking picture.'),
-  //       ),
-  //     );
-  //     return null;
-  //   }
-  // }
-
-  // Future takePicture() async {
-  //   if (!_cameraController.value.isInitialized) {
-  //     return null;
-  //   }
-  //   if (_cameraController.value.isTakingPicture) {
-  //     return null;
-  //   }
-  //   try {
-  //     await _cameraController.setFlashMode(FlashMode.off);
-  //     XFile picture = await _cameraController.takePicture();
-  //     Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (context) => CameraPreviewPage(
-  //               picture: picture,
-  //             )));
-  //
-  //   } on CameraException catch (e) {
-  //     debugPrint('Error occured while taking picture: $e');
-  //     return null;
-  //   }
-  // }
-
   Future initCamera(CameraDescription cameraDescription) async {
     _cameraController =
         CameraController(cameraDescription, ResolutionPreset.medium);

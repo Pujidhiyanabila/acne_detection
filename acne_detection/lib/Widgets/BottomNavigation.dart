@@ -17,9 +17,9 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   List Screens = [
-    DetectionScreen(),
-    HomeScreen(),
-    CategoryScreen(),
+    const DetectionScreen(),
+    const HomeScreen(),
+    const CategoryScreen(),
   ];
   int _selectedIndex = 1;
 
@@ -33,7 +33,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         backgroundColor: ColorStyles.primaryColor,
         color: ColorStyles.secondaryColor,
         animationDuration: Duration(milliseconds: 300),
-        items: [
+        items: const [
           Icon(
             Icons.face,
             color: ColorStyles.textColor,

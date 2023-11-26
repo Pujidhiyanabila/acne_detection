@@ -1,19 +1,18 @@
 import 'dart:ui';
-
 import 'package:acne_detection/Common/style.dart';
 import 'package:acne_detection/Models/Category_Model.dart';
 import 'package:flutter/material.dart';
 
-class DetailPage extends StatefulWidget {
+class DetailScreen extends StatefulWidget {
   final CategoryModel categoryModel;
 
-  const DetailPage({super.key, required this.categoryModel});
+  const DetailScreen({super.key, required this.categoryModel});
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<DetailScreen> createState() => _DetailScreenState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _DetailScreenState extends State<DetailScreen> {
   var inputController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var dropdownValue = 0;
@@ -21,18 +20,18 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Image.asset(widget.categoryModel.img),
-            ),
-            buttonArrow(context),
-            scroll(),
-          ],
-        ),
-      )
+        child: Scaffold(
+          body: Stack(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Image.asset(widget.categoryModel.img),
+              ),
+              buttonArrow(context),
+              scroll(),
+            ],
+          ),
+        )
     );
   }
 
@@ -82,8 +81,8 @@ class _DetailPageState extends State<DetailPage> {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20)),
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20)),
             ),
             child: SingleChildScrollView(
               child: Padding(
@@ -106,9 +105,9 @@ class _DetailPageState extends State<DetailPage> {
                         height: 2,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Tentang',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'avenir',
                           color: ColorStyles.textColor,
@@ -119,7 +118,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Text(
                       widget.categoryModel.about,
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(color: ColorStyles.textColor),
@@ -130,9 +130,9 @@ class _DetailPageState extends State<DetailPage> {
                         height: 4,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Penyebab?',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'avenir',
                           color: ColorStyles.textColor,
@@ -143,7 +143,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Text(
                       widget.categoryModel.reason,
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(color: ColorStyles.textColor),
@@ -154,9 +155,9 @@ class _DetailPageState extends State<DetailPage> {
                         height: 4,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Cara Mengatasi?',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'avenir',
                           color: ColorStyles.textColor,
@@ -167,7 +168,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Text(
                       widget.categoryModel.overcome,
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(color: ColorStyles.textColor),
@@ -177,7 +179,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Text(
                       'Untuk informasi lebih lanjut dapat menghubungi klinik kecantikan.',
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(color: ColorStyles.textColor),
@@ -188,9 +191,9 @@ class _DetailPageState extends State<DetailPage> {
                         height: 4,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Sumber Informasi',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'avenir',
                           color: ColorStyles.textColor,
@@ -201,7 +204,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Text(
                       widget.categoryModel.info,
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(color: ColorStyles.textColor),
@@ -221,6 +225,6 @@ class _DetailPageState extends State<DetailPage> {
             ),
           );
         }
-        );
+    );
   }
 }

@@ -33,7 +33,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             // },
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => DetailPage(
+                  builder: (_) => DetailScreen(
                     categoryModel: category,
                   )));
             },

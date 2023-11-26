@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:acne_detection/Common/style.dart';
 import 'package:acne_detection/Models/Prediction_Model.dart';
 import 'package:acne_detection/Views/CategoryScreen.dart';

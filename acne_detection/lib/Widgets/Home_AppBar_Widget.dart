@@ -17,12 +17,7 @@ class HomeAppBarWidget extends StatelessWidget {
             height: 20,
             color: ColorStyles.blackColor,
           ),
-          // Icon(
-          //   Icons.center_focus_weak,
-          //   size: 30,
-          //   color: ColorStyles.blackColor,
-          // ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(
               left: 20,
             ),
@@ -39,7 +34,7 @@ class HomeAppBarWidget extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:acne_detection/Widgets/Home_AppBar_Widget.dart';
 import 'package:acne_detection/Widgets/Home_Category_Widget.dart';
 import 'package:acne_detection/Widgets/Input_Widget.dart';
+import 'package:acne_detection/Widgets/Search_Widget.dart';
 import 'package:flutter/material.dart';
 import 'package:acne_detection/Common/style.dart';
 
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               const HomeAppBarWidget(),
               Container(
-                height: 740,
+                height: 770,
                 padding: EdgeInsets.only(top: 15),
                 decoration: const BoxDecoration(
                   color: ColorStyles.appbarColor,
@@ -31,34 +32,45 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: ColorStyles.primaryColor,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 2),
-                            height: 40,
-                            width: 289,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Search here...",
-                              ),
-                            ),
-                          ),
-                          // Spacer(),
-                          const Icon(
-                            Icons.search,
-                            size: 27,
+                    // SizedBox(
+                    //   width: 330,
+                    //   child: ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //         backgroundColor: ColorStyles.primaryColor,
+                    //         foregroundColor: ColorStyles.textColor),
+                    //     onPressed: () {
+                    //       Navigator.of(context)
+                    //           .push(MaterialPageRoute(builder: (context) => SearchWidget()));
+                    //     },
+                    //     child: const Text(
+                    //       'Search',
+                    //       style: TextStyle(
+                    //         fontSize: 14,
+                    //         fontFamily: 'avenir',
+                    //         color: ColorStyles.textColor,
+                    //         fontWeight: FontWeight.w800,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(
+                      width: 330,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) => SearchWidget()));
+                        },
+                        icon: const Icon(Icons.search),
+                        label: const Text(
+                          "Search",
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'avenir',
                             color: ColorStyles.textColor,
-                          )
-                        ],
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
                     ),
                     Container(

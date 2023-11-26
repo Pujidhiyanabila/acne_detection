@@ -34,7 +34,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: ColorStyles.secondaryColor,
       ),
       backgroundColor: ColorStyles.primaryColor,
-      body: Column(
+      body: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

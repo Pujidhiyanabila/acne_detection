@@ -15,7 +15,7 @@ class DetectionScreen extends StatefulWidget {
 class _DetectionScreenState extends State<DetectionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: ColorStyles.primaryColor,
       body: SingleChildScrollView(
         child: Column(
@@ -26,7 +26,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
               height: 30,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 'ACNE DETECTION',
                 style:
@@ -42,7 +42,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
               height: 2,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 'INPUT IMAGE',
                 style:
@@ -58,7 +58,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 'INPUT GAMBAR ANDA',
                 style:
@@ -74,7 +74,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
               height: 2,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 'Gambar yang telah di input tidak akan disimpan',
                 style:
@@ -94,7 +94,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 'Untuk hasil terbaik:',
                 style:
