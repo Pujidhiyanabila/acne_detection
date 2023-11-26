@@ -174,17 +174,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           .bodyText2!
                           .copyWith(color: ColorStyles.textColor),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Untuk informasi lebih lanjut dapat menghubungi klinik kecantikan.',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(color: ColorStyles.textColor),
-                    ),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       child: Divider(
