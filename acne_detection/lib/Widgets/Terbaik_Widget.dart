@@ -16,6 +16,7 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
       child: Column(
         children: [
           Card(
+            color: ColorStyles.appbarColor,
             elevation: 0,
             child: Row(
               children: <Widget>[
@@ -43,6 +44,7 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
             ),
           ),
           Card(
+            color: ColorStyles.appbarColor,
             elevation: 0,
             child: Row(
               children: <Widget>[
@@ -70,6 +72,7 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
             ),
           ),
           Card(
+            color: ColorStyles.appbarColor,
             elevation: 0,
             child: Row(
               children: <Widget>[
@@ -97,6 +100,7 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
             ),
           ),
           Card(
+            color: ColorStyles.appbarColor,
             elevation: 0,
             child: Row(
               children: <Widget>[
@@ -124,6 +128,7 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
             ),
           ),
           Card(
+            color: ColorStyles.appbarColor,
             elevation: 0,
             child: Row(
               children: <Widget>[

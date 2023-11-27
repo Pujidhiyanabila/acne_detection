@@ -18,7 +18,7 @@ class CategoryViewModel with ChangeNotifier {
       id: 1,
       name: 'Blackheads',
       img: 'Assets/Images/Blackheads.jpg',
-      about: 'Blackhead adalah pori-pori tersumbat kecil, non-inflamasi , berwarna hitam atau coklat yang paling sering muncul di wajah.',
+      about: 'Blackhead adalah pori-pori tersumbat kecil, non-inflamasi, berwarna hitam atau coklat yang paling sering muncul di wajah.',
       reason: 'Penyakit ini berkembang ketika pori-pori tersumbat sebagian dan mulai terisi minyak kulit. Karena pori-pori yang tersumbat hanya sebagian, oksigen dari udara merembes masuk dan bereaksi dengan melanin pada pori-pori yang tersumbat, inilah yang menyebabkan warna hitam atau coklat yang kita lihat pada komedo.',
       overcome: 'Mengatasi Blackhead adalah dengan menggunakan senyawa asam salisilat karena bahan tersebut membantu menghilangkan lapisan atas kulit yang rusak, melakukan eksfoliasi secara rutin sebanyak dua sampai tiga kali dalam satu minggu untuk membantu mengangkat sel kulit mati dari permukaan kulit wajah, menggunakan masker wajah, melakukan chemical peeling, menjaga kulit tetap lembap dan terhidrasi, melakukan Perawatan ke Profesional.',
       info: 'acne.org & halodoc',

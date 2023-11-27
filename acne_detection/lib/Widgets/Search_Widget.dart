@@ -1,8 +1,7 @@
 import 'dart:core';
-
 import 'package:acne_detection/Common/style.dart';
 import 'package:acne_detection/Models/Category_Model.dart';
-import 'package:acne_detection/Views/Detail_Screen.dart';
+import 'package:acne_detection/Views/DetailScreen.dart';
 import 'package:flutter/material.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -92,14 +91,18 @@ class _SearchWidgetState extends State<SearchWidget> {
           decoration: InputDecoration(
             filled: true,
             fillColor: ColorStyles.primaryColor,
-            contentPadding: EdgeInsets.symmetric(vertical: 10),
+            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(8),
               // borderSide: BorderSide.none,
             ),
             hintText: "Search here...",
-            prefixIcon: const Icon(Icons.search),
-            prefixIconColor: ColorStyles.textColor,
+            suffixIcon: const Icon(Icons.search),
+            suffixIconColor: ColorStyles.textColor,
+            suffixIconConstraints: BoxConstraints(
+              minWidth: 40,
+              minHeight: 40,
+            ),
           ),
         ),
       ),
@@ -124,6 +127,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                     itemBuilder: (context, index) {
                       final categoryModel = displayList[index];
                       return Card(
+                        color: ColorStyles.primaryColor,
                         child: ListTile(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(

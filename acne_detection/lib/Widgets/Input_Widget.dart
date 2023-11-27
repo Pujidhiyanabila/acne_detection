@@ -57,7 +57,10 @@ class _InputWidgetState extends State<InputWidget> {
               await availableCameras().then((value) => Navigator.push(context,
                   MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
             },
-            icon: const Icon(Icons.camera_alt),
+            icon: const Icon(
+              Icons.camera_alt,
+              color: ColorStyles.textColor,
+            ),
             label: const Text(
               "Camera",
               maxLines: 2,
@@ -68,12 +71,18 @@ class _InputWidgetState extends State<InputWidget> {
                 fontWeight: FontWeight.w800,
               ),
             ),
+            style: ElevatedButton.styleFrom(
+              primary: ColorStyles.primaryColor, // Set the background color for the "Camera" button
+            ),
           ),
           const SizedBox(width: 8),
           // const GalleryPage(),
           ElevatedButton.icon(
             onPressed: ()=> _pickImage(),
-            icon: const Icon(Icons.image),
+            icon: const Icon(
+              Icons.image,
+              color: ColorStyles.textColor,
+            ),
             label: const Text(
               "Galery",
               maxLines: 2,
@@ -83,6 +92,9 @@ class _InputWidgetState extends State<InputWidget> {
                 color: ColorStyles.textColor,
                 fontWeight: FontWeight.w800,
               ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: ColorStyles.primaryColor, // Set the background color for the "Camera" button
             ),
           ),
         ],

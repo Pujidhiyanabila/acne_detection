@@ -6,4 +6,6 @@ abstract class ColorStyles {
   static const Color textColor = Color(0xFF121950);
   static const Color blackColor = Color(0xFF000000);
   static const Color appbarColor = Color(0xFFEDECF2);
+  static const Color buttonColor = Color(0xFF303E7A);
+
 }

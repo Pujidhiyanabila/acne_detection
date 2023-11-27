@@ -1,5 +1,5 @@
 import 'package:acne_detection/ViewModel/Category_View_Model.dart';
-import 'package:acne_detection/Views/Detail_Screen.dart';
+import 'package:acne_detection/Views/DetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:acne_detection/Common/style.dart';
 import 'package:provider/provider.dart';

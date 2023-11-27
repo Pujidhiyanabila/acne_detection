@@ -39,7 +39,10 @@ class HomeScreen extends StatelessWidget {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) => SearchWidget()));
                         },
-                        icon: const Icon(Icons.search),
+                        icon: const Icon(
+                          Icons.search,
+                          color: ColorStyles.textColor,
+                        ),
                         label: const Text(
                           "Search",
                           maxLines: 2,
@@ -49,6 +52,9 @@ class HomeScreen extends StatelessWidget {
                             color: ColorStyles.textColor,
                             fontWeight: FontWeight.w800,
                           ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: ColorStyles.secondaryColor, // Set the background color for the "Camera" button
                         ),
                       ),
                     ),
