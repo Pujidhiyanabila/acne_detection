@@ -1,4 +1,3 @@
-import 'package:acne_detection/Widgets/Home_AppBar_Widget.dart';
 import 'package:acne_detection/Widgets/Home_Category_Widget.dart';
 import 'package:acne_detection/Widgets/Input_Widget.dart';
 import 'package:acne_detection/Widgets/Search_Widget.dart';
@@ -13,13 +12,29 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title:
+        const Text(
+          "Acne Detection",
+          style:
+          TextStyle(
+              fontSize: 20,
+              fontFamily: 'avenir',
+              color: ColorStyles.textColor,
+              fontWeight: FontWeight.w800
+          ),
+          // overflow: TextOverflow.ellipsis,
+        ),
+        centerTitle: true,
+        backgroundColor: ColorStyles.primaryColor,
+      ),
+      backgroundColor: ColorStyles.primaryColor,
       body: SingleChildScrollView(
         child:
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeAppBarWidget(),
               Container(
                 height: 660,
                 padding: EdgeInsets.only(top: 15),
