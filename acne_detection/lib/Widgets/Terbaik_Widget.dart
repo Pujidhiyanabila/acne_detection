@@ -23,34 +23,6 @@ class _HasilTerbaikWidgetState extends State<HasilTerbaikWidget> {
                 Container(
                   margin: EdgeInsets.all(5),
                   child: Image.asset(
-                      'Assets/Images/ukurangambar.png',
-                      height: 15,
-                      width: 15,
-                      fit: BoxFit.cover),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Ambil gambar dengan resolusi 720x480 pixel',
-                  maxLines: 2,
-                  style:
-                  TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'avenir',
-                      color: ColorStyles.textColor,
-                      fontWeight: FontWeight.w800),
-                  // overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-          Card(
-            color: ColorStyles.appbarColor,
-            elevation: 0,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: Image.asset(
                       'Assets/Images/no-cosmetics.png',
                       height: 15,
                       width: 15,
